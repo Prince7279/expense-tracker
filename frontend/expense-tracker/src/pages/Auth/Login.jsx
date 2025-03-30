@@ -1,7 +1,7 @@
 import React ,{ useState } from "react";
 import AuthLayout from "../../components/layouts/AuthLayout";
 import Input from "../../components/Inputs/Input";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { validateEmail } from "../../utils/helper";
 
 
@@ -12,10 +12,10 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
-  // const navigate = useNavigate(); // Removed as it is not used
+  const Navigate = useNavigate(); // Removed as it is not used
 
   // Handle Login Form Submit
-  // Handle Login Form Submit
+  
   const handleLogin = async (e) => {
     e.preventDefault();
 
