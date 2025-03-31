@@ -18,7 +18,8 @@ const AuthLayout = ({ children }) => {
             icon={<LuTrendingUpDown />} 
             label="Track your Income & Expense"
             value="430,000"
-            color="bg-primary"
+            color="bg-voilet-600"
+            
           />
         </div>
         <img 
