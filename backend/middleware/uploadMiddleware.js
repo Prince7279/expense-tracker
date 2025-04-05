@@ -12,12 +12,12 @@ const storage = multer.diskStorage({
 
 // file filter 
 const fileFilter = (req,file,cb) =>{
-    const allowedTypes = ['Image/jpeg', 'Image/png', 'Image/jpg'];
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
     if (allowedTypes.includes(file.mimetype)){
         cb(null,true);
     } else{
         cb(new Error('Invalid file type, only JPEG and PNG are allowed'), false);
     }
     };
-    const uploads = multer({ storage, fileFilter});
-    module.exports = uploads;
+    const upload = multer({ storage, fileFilter});
+    module.exports = upload;
