@@ -3,6 +3,8 @@ import AuthLayout from "../../components/layouts/AuthLayout";
 import Input from "../../components/Inputs/Input";
 import { Link, useNavigate } from 'react-router-dom';
 import { validateEmail } from "../../utils/helper";
+import axiosInstance from "../../utils/axiosInstance";
+import { API_PATHS } from "../../utils/apiPaths";
 
 
 
@@ -12,7 +14,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
-  const Navigate = useNavigate(); // Removed as it is not used
+  const navigate = useNavigate();
 
   // Handle Login Form Submit
   
@@ -32,11 +34,27 @@ const Login = () => {
     setError("");
 
     // Login API Call
+    try {
+      const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
+        email,
+        password,
+      });
+      const { token} = response.data;
+      
+      if (token) {
+        localStorage.setItem("token", token);
+        navigate("/dashboard"); // Use lowercase navigate
+      }
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
+    }
+  }
 
-    
-}
-
-
+  // ...rest of your component...
 
 
 
@@ -47,7 +65,7 @@ const Login = () => {
           <div className="lg:w-[70%] h-3/4 md:h-full flex flex-col justify-center">
               <h3 className="text-xl font-semibold text-black">Welcome Back</h3>
               <p className="text-xs text-slate-700 mt-[5px] mb-6">
-                  Please enter your details to log in
+                  Please enter your details to log in to your account.
               </p>
 
               <form onSubmit={handleLogin}>
